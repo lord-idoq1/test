@@ -1159,7 +1159,7 @@ router.get('/api/maker/animeai', cekKey, async (req, res) => {
 	if (!text ) return res.json({ status : false, creator : `${creator}`, message : "[ ! ] masukan parameter url"})
 	var img = await isImageURL(text)
 	if ( !img ) return res.json({ status : false, creator : `${creator}`, message : "[ ! ] cek kembali url image"}) 
-	const hasil =  `https://api.caliph.biz.id/api/animeai?img=${text}&apikey=caliphkey`
+	const hasil =  await getBuffer(`https://api.caliph.biz.id/api/animeai?img=${text}&apikey=caliphkey`)
 	if (hasil.status == false) return res.json({ status : false, creator : `${creator}`, message : hasil.error }) 
 	limitapikey(req.query.apikey)
 	res.set({'Content-Type': 'image/png'})
